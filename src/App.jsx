@@ -1,21 +1,33 @@
-
-import styled from 'styled-components'
-import GlobalStyle from './styles/GlobalStyles'
-import Button from './ui/Button'
-import Input from './ui/Input'
+import { BrowserRouter, Navigate, Route, Router, Routes } from "react-router-dom"
+import Dashboard from './pages/Dashboard'
+import Bookings from './pages/Bookings'
+import Cabins from './pages/Cabins'
+import Users from './pages/Users'
+import Settings from './pages/Settings'
+import Account from './pages/Account'
+import Login from './pages/Login'
+import PageNotFound from './pages/PageNotFound'
+import GlobalStyles from './styles/GlobalStyles'
 function App() {
 
   return (
     <>
-      <GlobalStyle />
-      <div>
+      <GlobalStyles />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Navigate reaplace to='dashboard' />} />
+          <Route path='dashboard' element={<Dashboard />} />
+          <Route path='bookings' element={<Bookings />} />
+          <Route path='cabins' element={<Cabins />} />
+          <Route path='users' element={<Users />} />
+          <Route path='settings' element={<Settings />} />
+          <Route path='account' element={<Account />} />
+          <Route path='login' element={<Login />} />
+          <Route path='*' element={<PageNotFound />} />
+        </Routes>
 
-        <Input></Input>
-        <Button onClick={() => { alert('wass up') }}>
-          chceck in
-        </Button>
-      </div>
 
+      </BrowserRouter>
     </>
   )
 }
