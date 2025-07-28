@@ -1,13 +1,22 @@
-import { useState } from 'react'
 
-
+import styled from 'styled-components'
+import GlobalStyle from './styles/GlobalStyles'
+import Button from './ui/Button'
+import Input from './ui/Input'
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      Hello
-    </div>
+    <>
+      <GlobalStyle />
+      <div>
+
+        <Input></Input>
+        <Button onClick={() => { alert('wass up') }}>
+          chceck in
+        </Button>
+      </div>
+
+    </>
   )
 }
 
