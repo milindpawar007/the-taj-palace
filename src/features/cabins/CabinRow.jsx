@@ -43,18 +43,31 @@ const Discount = styled.div`
 
 import React from 'react'
 import PropTypes from 'prop-types';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteCabins } from "../../services/apiCabins.js";
+import toast from "react-hot-toast";
 
 function CabinRow({ cabin }) {
-  const { name, maxCapacity, regularPrice, discount, image, } = cabin;
+  const { id: cabinID, name, maxCapacity, regularPrice, discount, image, } = cabin;
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: (id) => deleteCabins(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cabins'] });
+      toast.success('Cabin deleted successfully!');
+    },
+    onError: (err) => toast.error(`Failed to delete: ${err.message}`)
+  });
+
   return (
     <TableRow role="row">
       <Img src={image} />
       <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity}</div>
+      <div>Fits up to {maxCapacity} guests</div>
       <Price>{helpers.formatCurrency(regularPrice)}</Price>
       <Discount>{helpers.formatCurrency(regularPrice)}</Discount>
-      <button>Delete</button>
-    </TableRow>
+      <button onClick={() => { mutate(cabinID) }} disabled={isPending}>{isPending ? "Deleting..." : "Delete"}</button>
+    </TableRow >
   )
 }
 
