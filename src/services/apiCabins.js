@@ -20,6 +20,29 @@ const { data: cabins, error } = await supabase
 
 }
 
+
+export  async function createCabin(newCabin){
+
+
+const { data:cabin, error } = await supabase
+  .from('cabins')
+  .insert([newCabin])
+  .select()
+
+
+    if(error)
+  {
+      console.log(error);
+      throw new Error ("cabins could not be deleted")
+  }
+ 
+    return cabin
+
+}
+
+
+
+
 export  async function deleteCabins(id){
 
   const { error } = await supabase
