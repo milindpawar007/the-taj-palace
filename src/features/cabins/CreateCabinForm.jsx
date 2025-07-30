@@ -31,7 +31,7 @@ function CreateCabinForm() {
 
 
   const onSubmit = (data) => {
-    mutate(data)
+    mutate({ ...data, image: data.image[0] })
   }
   const onError = (error) => {
     //console.log(error)
@@ -115,6 +115,7 @@ function CreateCabinForm() {
           id='image'
           accept='image/*'
 
+          {...register('image', { required: 'This field is required' })}
 
         />
       </FormRow>
