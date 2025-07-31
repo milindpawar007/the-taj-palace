@@ -6,7 +6,7 @@ import { duplicateCabin as duplicateCabinAPI } from "../services/apiCabins";
 export default function useDuplicateCabin() {
   const queryClient = useQueryClient();
 
-  const { mutate: duplicateCabin } = useMutation({
+  const { mutate: duplicateCabin ,isPending:isCreating } = useMutation({
     mutationFn: ({ id }) => duplicateCabinAPI(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cabins'] });
@@ -15,5 +15,5 @@ export default function useDuplicateCabin() {
     onError: (err) => toast.error(`Failed to duplicate cabin: ${err.message}`),
   });
 
-  return { duplicateCabin };
+  return { duplicateCabin ,isCreating };
 }

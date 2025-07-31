@@ -52,7 +52,7 @@ function CabinRow({ cabin }) {
   const [showForm, setShowForm] = useState(false)
   const { id: cabinID, name, maxCapacity, regularPrice, discount, image, } = cabin;
   const { isDeleting, deleteCabin } = useDeleteCabins(cabinID);
-  const { duplicateCabin } = useDuplicateCabin(cabinID);
+  const { duplicateCabin, isCreating } = useDuplicateCabin(cabinID);
 
   return (
     <>
@@ -63,7 +63,7 @@ function CabinRow({ cabin }) {
         <Price>{helpers.formatCurrency(regularPrice)}</Price>
         {discount ? <Discount>{helpers.formatCurrency(discount)}</Discount> : (<span>&mdash;</span>)}
         <div>
-          <button onClick={() => duplicateCabin({ id: cabinID })}><HiSquare2Stack /></button>
+          <button onClick={() => duplicateCabin({ id: cabinID })} disabled={isCreating}><HiSquare2Stack /></button>
           <button onClick={() => { setShowForm((showForm) => !showForm) }}><HiPencil /></button>
           <button onClick={() => { deleteCabin(cabinID) }} disabled={isDeleting}><HiTrash /></button>
         </div>
