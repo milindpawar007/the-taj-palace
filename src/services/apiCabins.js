@@ -69,6 +69,38 @@ export async function createEditCabin(newCabin, id) {
 }
 
 
+export  async function duplicateCabin(id)
+{
+    const { data: originalCabin, error: fetchError } = await supabase
+        .from("cabins")
+        .select("*")
+        .eq("id", id)
+        .single();
+    
+        if (fetchError) {
+    console.error(fetchError);
+    throw new Error("Cabin could not be fetched for duplication");
+  }
+
+    // Step 2: Remove id and modify the name
+  const { id: _, ...newCabinData } = originalCabin;
+  newCabinData.name = `${originalCabin.name} (Copy)`;
+
+   // Step 3: Insert the duplicated cabin
+  const { data: duplicatedCabin, error: insertError } = await supabase
+    .from("cabins")
+    .insert([newCabinData])
+    .select()
+    .single();
+
+  if (insertError) {
+    console.error(insertError);
+    throw new Error("Cabin could not be duplicated");
+  }
+
+  return duplicatedCabin;
+   
+}
 
 export  async function deleteCabins(id){
 

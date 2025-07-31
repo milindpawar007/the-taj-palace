@@ -29,7 +29,7 @@ import React from 'react'
 import { useQuery } from "@tanstack/react-query";
 import { getCabins } from "../../services/apiCabins";
 import CabinRow from "./CabinRow";
-import useCabins from "../../hooks/useCabins,js";
+import useCabins from "../../hooks/useCabins.js";
 
 function CabinTable() {
 
