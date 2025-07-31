@@ -38,7 +38,7 @@ export async function createEditCabin(newCabin, id) {
   }
   // Edit
   else {
-    query = query.update({ ...newCabin, image: imagePath }).eq('id', id).select().single();
+    query = supabase.from('cabins').update({ ...newCabin, image: imagePath }).eq('id', id).select().single();
   }
 
   const { data, error } = await query;

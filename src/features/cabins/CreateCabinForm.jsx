@@ -7,10 +7,11 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { createEditCabin } from "../../services/apiCabins";
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import FormRow from "../../ui/FormRow";
+import useCreateCabin from "../../hooks/useCreateCabin";
+import useEditCabin from "../../hooks/useEditCabins";
+import { useEffect } from "react";
 
 
 
@@ -20,29 +21,14 @@ function CreateCabinForm({ cabinToedit = {} }) {
 
   const isEditSession = Boolean(editID)
 
-  const { register, handleSubmit, reset, getValues, formState } = useForm({ defaultValues: isEditSession ? editValues : {} });
+  const { register, handleSubmit, reset, getValues, formState } = useForm()
   const { errors } = formState;
 
-  const queryClient = useQueryClient();
-  const { mutate: createCabin, isPending: isCreating } = useMutation({
-    mutationFn: createEditCabin,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cabins'] });
-      toast.success('New Cabin added successfully!');
-      reset();
-    },
-    onError: (err) => toast.error(`Failed to add the cabin: ${err.message}`)
-  });
 
-  const { mutate: ediCabin, isPending: isEditing } = useMutation({
-    mutationFn: ({ newCabinData, id }) => createEditCabin(newCabinData, id),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['cabins'] });
-      toast.success(' Cabin Edited successfully!');
-      reset(data);
-    },
-    onError: (err) => toast.error(`Failed to add the cabin: ${err.message}`)
-  });
+
+  const { createCabin, isCreating } = useCreateCabin();
+  const { editCabin, isEditing } = useEditCabin();
+
 
   const isWorking = isCreating || isEditing
 
@@ -59,15 +45,39 @@ function CreateCabinForm({ cabinToedit = {} }) {
       return;
     }
     if (isEditSession) {
-      ediCabin({ newCabinData: { ...data, image }, id: editID });
+      editCabin(
+        { newCabinData: { ...data, image }, id: editID },
+        {
+          onSuccess: () => {
+            reset(); // ✅ Works here
+          },
+        }
+      );
     } else {
-      createCabin({ ...data, image });
+      createCabin(
+        { ...data, image },
+        {
+          onSuccess: () => {
+            reset(); // ✅ Also works here
+          },
+        }
+      );
     }
 
   }
   const onError = (error) => {
     //console.log(error)
   }
+
+  useEffect(() => {
+    if (editID) {
+      reset(cabinToedit); // use full object directly
+    } else {
+      reset();
+    }
+  }, [editID]);
+
+
   return (
     <Form key={isEditSession ? editID : 'new'} onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow label='Cabin name' error={errors?.name?.message}>
@@ -153,7 +163,7 @@ function CreateCabinForm({ cabinToedit = {} }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="button" onClick={() => reset()}>
           Cancel
         </Button>
 
