@@ -3,6 +3,7 @@ import { cloneElement, createContext, useContext, useEffect, useRef, useState } 
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
+import useOutSideClick from "../hooks/useOutSideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -82,22 +83,7 @@ function Open({ children, opens: opensWindowName }) {
 function Window({ children, name }) {
 
   const { openName, close } = useContext(ModalContext)
-  const ref = useRef();
-  useEffect(() => {
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        close();
-      }
-
-    }
-    const timer = setTimeout(() => {
-      document.addEventListener("click", handleClick, true);
-    }, 0);
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener("click", handleClick, true);
-    };
-  }, [close])
+  const { ref } = useOutSideClick(close)
 
   if (name !== openName) return null;
   return createPortal(
