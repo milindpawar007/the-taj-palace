@@ -59,6 +59,7 @@ function CreateCabinForm({ cabinToedit = {}, onCloseModal }) {
         {
           onSuccess: () => {
             reset(); // ✅ Also works here
+            onCloseModal?.();
           },
         }
       );
@@ -79,7 +80,7 @@ function CreateCabinForm({ cabinToedit = {}, onCloseModal }) {
 
 
   return (
-    <Form key={isEditSession ? editID : 'new'} onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form key={isEditSession ? editID : 'new'} onSubmit={handleSubmit(onSubmit, onError)} type={onCloseModal ? "modal" : "regular"}>
       <FormRow label='Cabin name' error={errors?.name?.message}>
 
         <Input
@@ -163,7 +164,7 @@ function CreateCabinForm({ cabinToedit = {}, onCloseModal }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="button" onClick={() => onCloseModal()}>
+        <Button variation="secondary" type="button" onClick={() => onCloseModal?.()}>
           Cancel
         </Button>
 
