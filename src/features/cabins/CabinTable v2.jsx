@@ -1,5 +1,13 @@
 import styled from "styled-components";
-import Spinner from '../../ui/Spinner'
+import Spinner from '../../ui/Spinner.jsx'
+const Table = styled.div`
+  border: 1px solid var(--color-grey-200);
+
+  font-size: 1.4rem;
+  background-color: var(--color-grey-0);
+  border-radius: 7px;
+  overflow: hidden;
+`;
 
 const TableHeader = styled.header`
   display: grid;
@@ -19,11 +27,9 @@ const TableHeader = styled.header`
 
 import React from 'react'
 import { useQuery } from "@tanstack/react-query";
-import { getCabins } from "../../services/apiCabins";
-import CabinRow from "./CabinRow";
+import { getCabins } from "../../services/apiCabins.js";
+import CabinRow from "./CabinRow.jsx";
 import useCabins from "../../hooks/useCabins.js";
-import Table from "../../ui/Table.jsx";
-import Menus from "../../ui/Menus.jsx";
 
 function CabinTable() {
 
@@ -34,25 +40,17 @@ function CabinTable() {
   const { isLoading, cabins, error } = useCabins();
   if (isLoading) return <Spinner />
   return (
-    <Menus>
-      <Table columns='0.6fr 1.8fr 2.2fr 1fr 1fr 1fr'>
-        <Table.Header>
-          <div></div>
-          <div>Cabin</div>
-          <div>Capacity</div>
-          <div>Price</div>
-          <div>Discount</div>
-          <div></div>
-        </Table.Header>
-        <Table.Body
-          data={cabins}
-          render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
-        />
-
-
-
-      </Table>
-    </Menus>
+    <Table role='table'>
+      <TableHeader role='row'>
+        <div></div>
+        <div>Cabin</div>
+        <div>Capacity</div>
+        <div>Price</div>
+        <div>Discount</div>
+        <div></div>
+      </TableHeader>
+      {cabins?.map((cabin) => <CabinRow cabin={cabin} key={cabin.id} />)}
+    </Table>
   )
 }
 
