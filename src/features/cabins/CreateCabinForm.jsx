@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 
 
-function CreateCabinForm({ cabinToedit = {} }) {
+function CreateCabinForm({ cabinToedit = {}, onCloseModal }) {
 
   const { id: editID, ...editValues } = cabinToedit;
 
@@ -163,7 +163,7 @@ function CreateCabinForm({ cabinToedit = {} }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="button" onClick={() => reset()}>
+        <Button variation="secondary" type="button" onClick={() => onCloseModal()}>
           Cancel
         </Button>
 
@@ -176,6 +176,7 @@ function CreateCabinForm({ cabinToedit = {} }) {
 
 CreateCabinForm.propTypes = {
   cabinToedit: PropTypes.object,
+  onCloseModal: PropTypes.func
 };
 
 export default CreateCabinForm;
