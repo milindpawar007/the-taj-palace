@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import PropTypes from "prop-types";
 const StyledSelect = styled.select`
   font-size: 1.4rem;
   padding: 0.8rem 1.2rem;
@@ -17,9 +17,9 @@ const StyledSelect = styled.select`
 
 import React from 'react'
 
-function Select({ options, value }) {
+function Select({ options, value, onChange, ...props }) {
   return (
-    <StyledSelect value={value}>
+    <StyledSelect value={value} onChange={onChange} {...props}>
       {options.map((option) => (<option value={option.value} key={option.value}>
         {option.label}
       </option>))}
@@ -27,4 +27,15 @@ function Select({ options, value }) {
   )
 }
 
+
+Select.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func
+};
 export default Select
