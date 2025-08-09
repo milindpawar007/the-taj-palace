@@ -8,6 +8,7 @@ import useCabins from "../../hooks/useCabins.js";
 import Table from "../../ui/Table.jsx";
 import Menus from "../../ui/Menus.jsx";
 import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty.jsx";
 
 function CabinTable() {
 
@@ -21,6 +22,7 @@ function CabinTable() {
 
 
   if (isLoading) return <Spinner />
+  if (!cabins.length) return <Empty resourceName={"bookings"}></Empty>
   // 1) filter
   const filteredCabins =
     filterValue === "no-discount"
