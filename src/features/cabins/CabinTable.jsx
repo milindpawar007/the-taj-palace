@@ -32,7 +32,7 @@ function CabinTable() {
         : cabins;
 
   // 2)sorting
-  console.log(cabins)
+
   const sortByValue = searchParamas.get("sortBy") || "name-asc";
   const [field, direction] = sortByValue.split("-");
   const modifier = direction === 'asc' ? 1 : -1

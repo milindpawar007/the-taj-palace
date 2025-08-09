@@ -7,7 +7,8 @@ import SortBy from '../../ui/SortBy'
 function CabinTableOperations() {
     return (
         <TableOperations >
-            <Filter fliterField={"discount"}
+
+            <Filter filterField={"discount"}
                 options={
                     [
                         { value: 'all', label: "All" },

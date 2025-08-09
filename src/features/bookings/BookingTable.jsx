@@ -8,8 +8,6 @@ import Spinner from "../../ui/Spinner";
 
 function BookingTable() {
   const { isLoading, bookings = [], error } = useBookings();
-  console.log(bookings)
-
 
   if (isLoading) return <Spinner />;
   if (error) return <div>Failed to load bookings</div>;
