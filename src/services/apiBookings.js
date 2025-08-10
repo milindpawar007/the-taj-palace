@@ -44,6 +44,8 @@ export async function getBookings({filter,sortBy,page}){
 
 
 export async function getBooking(id) {
+   const bookingId = Number(id);
+  if (!Number.isInteger(bookingId)) throw new Error("Missing or invalid booking id");
   const { data, error } = await supabase
     .from("bookings")
     .select("*, cabins(*), guests(*)")
