@@ -45,7 +45,7 @@ function Filter({ filterField, options }) {
 
   const [searchParamas, setSearchParam] = useSearchParams()
 
-  const currentFilter = searchParamas.get(filterField) || options.at(0).value
+  const currentFilter = searchParamas.get(filterField) || options.at(0).value;
   function handelClick(value) {
     searchParamas.set(filterField, value)
     setSearchParam(searchParamas)
