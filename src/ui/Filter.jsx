@@ -48,6 +48,7 @@ function Filter({ filterField, options }) {
   const currentFilter = searchParamas.get(filterField) || options.at(0).value;
   function handelClick(value) {
     searchParamas.set(filterField, value)
+    searchParamas.set("page", "1")
     setSearchParam(searchParamas)
   }
   return (
