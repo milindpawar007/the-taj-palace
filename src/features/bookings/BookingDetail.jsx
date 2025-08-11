@@ -11,8 +11,10 @@ import ButtonText from "../../ui/ButtonText";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import useBooking from "./useBooking";
 import Spinner from "../../ui/Spinner";
-import { HiArrowDownOnSquare } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowLeftOnRectangle } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import Menus from "../../ui/Menus";
+import useCheckout from "../check-in-out/useCheckout";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -31,7 +33,7 @@ function BookingDetail() {
     "checked-in": "green",
     "checked-out": "silver",
   };
-
+  const { checkOut, isCheckingOut } = useCheckout();
   if (isLoading) return <Spinner />;
   if (error) return <Row><p>{String(error.message || error)}</p></Row>;
   if (!booking) return null;
@@ -52,6 +54,8 @@ function BookingDetail() {
       <ButtonGroup>
         {status === 'unconfirmed' &&
           < Button onClick={() => navigate(`/checkin/${bookingId}`)}>Check in</ Button>}
+        {status === 'checked-in' &&
+          < Button icon={<HiArrowLeftOnRectangle />} onClick={() => checkOut(bookingId)} disabled={isCheckingOut}>Check out</ Button>}
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
