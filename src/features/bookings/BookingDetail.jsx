@@ -60,7 +60,7 @@ function BookingDetail() {
         {status === 'unconfirmed' &&
           <Modal>
             <Modal.Open opens="delete-booking">
-              <Button icon={<HiTrash />}>Delete booking</Button>
+              <Button variation='danger'>Delete booking</Button>
             </Modal.Open>
 
             <Modal.Window name="delete-booking">

@@ -8,7 +8,7 @@ export default function  useDeleteBooking(){
         const { mutate:deleteBooking, isPending:isDeleting } = useMutation({
             mutationFn: (id) => deleteCabinsApi(id),
             onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['booking'] });
+            queryClient.invalidateQueries({ queryKey: ['bookings'] });
             toast.success('Booking Deleted successfully!');
             },
             onError: (err) => toast.error(`Failed to delete: ${err.message}`)
