@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Logout from '../features/authentication/Logout'
 
 
 const StylesHeader = styled.header`
@@ -11,7 +12,7 @@ const StylesHeader = styled.header`
 function Header() {
     return (
         <StylesHeader>
-            Header
+            <Logout />
         </StylesHeader>
     )
 }
