@@ -32,18 +32,21 @@ export async function logout (){
     if(error){throw new Error(error.message)}
 }
 
-export async function signup({fullName,email,password}){
+export async function signup({ fullName, email, password }) {
 
-const {data,error}  = await supabase.auth.signUp({
-        email,password,options:{
-   data:{
-    fullName,
-    avatar:""
-   }
-        }
-    })
+    console.log(fullName, email, password);
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { data: { full_name: fullName, avatar: "" } },
+  });
+  if (error) throw error;
 
-     if(error){throw new Error(error.message)}
+  const { error: updErr } = await supabase.auth.updateUser({
+    data: { full_name: fullName, avatar: "" },
+  });
+  if (updErr) throw updErr;
 
-     return data
+  await supabase.auth.refreshSession(); // pull new claims
+  return data;
 }

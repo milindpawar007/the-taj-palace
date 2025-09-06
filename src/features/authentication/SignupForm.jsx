@@ -13,17 +13,17 @@ function SignupForm() {
   const { errors } = formState;
   const { signup, isloading } = useSignup();
 
-  function onSubmit({ fullname, email, password }) {
+  function onSubmit({ fullName, email, password }) {
 
     signup(
-      { fullname, email, password },
+      { fullName, email, password },
       { onSettled: reset })
   }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="Full name" error={errors?.fullname?.message}>
-        <Input type="text" id="fullName" disabled={isloading} {...register("fullname", { required: "this is field is required " })} />
+      <FormRow label="Full name" error={errors?.fullName?.message}>
+        <Input type="text" id="fullName" disabled={isloading} {...register("fullName", { required: "this is field is required " })} />
       </FormRow>
 
       <FormRow label="Email address" error={errors?.email?.message}>

@@ -19,3 +19,20 @@ const Avatar = styled.img`
   border-radius: 50%;
   outline: 2px solid var(--color-grey-100);
 `;
+
+import React from 'react'
+import { useGetAuthUser } from "./useGetAuthUser";
+
+function UserAvatar() {
+  const { user } = useGetAuthUser();
+  const { full_name, avatar } = user.user_metadata;
+  console.log(user)
+  return (
+    <StyledUserAvatar>
+      <Avatar src={avatar || 'default-user.jpg'} alt={`Avatart of ${full_name}`} />
+      <span>{full_name ? full_name : "Test Data"}</span>
+    </StyledUserAvatar>
+  )
+}
+
+export default UserAvatar
