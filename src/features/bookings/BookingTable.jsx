@@ -5,9 +5,10 @@ import { getBooking } from "../../services/apiBookings";
 import Empty from "../../ui/Empty";
 import useBookings from "./useBookings";
 import Spinner from "../../ui/Spinner";
+import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
-  const { isLoading, bookings = [], error } = useBookings();
+  const { isLoading, bookings = [], error, count } = useBookings();
 
   if (isLoading) return <Spinner />;
   if (error) return <div>Failed to load bookings</div>;
@@ -30,7 +31,11 @@ function BookingTable() {
             <BookingRow key={booking.id} booking={booking} />
           )}
         />
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
       </Table>
+
     </Menus>
   );
 }

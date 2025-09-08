@@ -6,6 +6,7 @@ export function useSetting(){
     useQuery({
         queryKey:['settings'],
         queryFn:getSettings,
+        staleTime: 60_000,
     })
 
     return{ isLoading ,error ,settings}
