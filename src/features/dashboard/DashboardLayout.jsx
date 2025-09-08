@@ -14,6 +14,8 @@ import Stat from "./Stat";
 import Stats from "./Stats";
 import useCabins from "../../hooks/useCabins";
 import SalesChart from "./SalesChart";
+import DurationChart from "./DurationChart";
+import TodayActivity from "../check-in-out/TodayActivity";
 
 function DashboardLayout() {
 
@@ -33,7 +35,10 @@ function DashboardLayout() {
       <div>Statistics</div>
       <div>Todays Activity</div>
       <div>Charts stay duration</div>
-      <div>Chartts of Sales</div>
+      <div>Charts of Sales</div>
+
+      <TodayActivity />
+      <DurationChart confirmedStays={confirmedStays} />
       <SalesChart bookings={bookings} numDays={numDays} />
     </StyledDashboardLayout>
   )
