@@ -32,10 +32,6 @@ function DashboardLayout() {
         numDays={numDays}
         cabinCount={cabins.length}
       />
-      <div>Statistics</div>
-      <div>Todays Activity</div>
-      <div>Charts stay duration</div>
-      <div>Charts of Sales</div>
 
       <TodayActivity />
       <DurationChart confirmedStays={confirmedStays} />
