@@ -26,7 +26,7 @@ import { useGetAuthUser } from "./useGetAuthUser";
 function UserAvatar() {
   const { user } = useGetAuthUser();
   const { full_name, avatar } = user.user_metadata;
-  console.log(user)
+
   return (
     <StyledUserAvatar>
       <Avatar src={avatar || 'default-user.jpg'} alt={`Avatart of ${full_name}`} />

@@ -1,5 +1,8 @@
 import styled from "styled-components";
-
+import React from 'react'
+import Heading from "./Heading";
+import PropTypes from "prop-types";
+import Button from "./Button";
 const StyledErrorFallback = styled.main`
   height: 100vh;
   background-color: var(--color-grey-50);
@@ -29,3 +32,26 @@ const Box = styled.div`
     color: var(--color-grey-500);
   }
 `;
+
+
+
+function ErrorFallback({ error, resetErrorBoundry }) {
+  return (
+    <StyledErrorFallback>
+      <Box>
+        <Heading as='h1'> Something went Wrong 👎</Heading>
+        <p>{error.message}</p>
+      </Box>
+      <Button size="large" onClick={resetErrorBoundry}>Try Again</Button>
+    </StyledErrorFallback>
+  )
+}
+
+ErrorFallback.propTypes = {
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }).isRequired,
+  resetErrorBoundry: PropTypes.func.isRequired,
+};
+
+export default ErrorFallback

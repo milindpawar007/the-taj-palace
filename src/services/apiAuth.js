@@ -8,7 +8,7 @@ export default async function login({email,password}){
 
     if(error){throw new Error(error.message)}
 
-    console.log(data)
+
     return {data}
 }
 
@@ -34,7 +34,7 @@ export async function logout (){
 
 export async function signup({ fullName, email, password }) {
 
-    console.log(fullName, email, password);
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,

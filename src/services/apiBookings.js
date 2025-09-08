@@ -9,7 +9,7 @@ export async function getBookings({filter,sortBy,page}){
     .select("id,created_at,startDate,endDate, numGuests,status,totalPrice,cabins(name),numNights, guests(fullName,email)",{count:"exact"})
     
 
-    console.log(filter)
+
   
   //Filter
  if(filter)
@@ -56,7 +56,7 @@ export async function getBooking(id) {
     console.error(error);
     throw new Error("Booking not found");
   }
-  console.log(data)
+ 
   return data;
 }
 
