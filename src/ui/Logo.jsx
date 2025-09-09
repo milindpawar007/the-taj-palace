@@ -13,7 +13,7 @@ function Logo() {
   return (
     <StyledLogo>
       {/* <Img src="/logo-light.png" alt="Logo" /> */}
-      <Img src="/public/LogoTaj.png" alt="Logo" />
+      <Img src="/LogoTaj.png" alt="Logo" />
     </StyledLogo>
   );
 }
